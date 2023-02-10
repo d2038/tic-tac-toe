@@ -1,0 +1,18 @@
+.gameboard-container {
+  background-color: azure;
+}
+
+.gameboard {
+  background-color: brown;
+  margin: 0 auto;
+  aspect-ratio: 1 / 1;
+  width: 30%;
+  display: grid;
+  gap: 5px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.square {
+  background-color: burlywood;
+}
