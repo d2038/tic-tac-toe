@@ -16,3 +16,13 @@
 .cell {
   background-color: burlywood;
 }
+
+.game-status {  
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: sans-serif;
+  height: 15vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
