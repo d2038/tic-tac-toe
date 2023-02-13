@@ -9,7 +9,6 @@
     "ecmaVersion": "latest"
   },
   "rules": {
-    "no-unused-vars": 1,
-    "no-sparse-arrays": 1
+    "no-unused-vars": 1
   }
 }
