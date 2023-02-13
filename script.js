@@ -16,6 +16,7 @@ const Gameboard = (() => {
   const boardArray = new Array(9);
   const gameboard = document.querySelector('.gameboard');
   const cells = Array.from(document.querySelectorAll('.cell'));
+  let winner = null;
 
   const render = () => {
     boardArray.forEach((mark, idx) => {
@@ -68,12 +69,25 @@ const Game = (() => {
 
   const gameRound = () => {
     const board = Gameboard;
+    const gameStatus = document.querySelector('.game-status');
+    if (currentPlayer.mark !== '') {
+      gameStatus.textContent = `${currentPlayer.mark}'s Turn`;
+      console.log(currentPlayer.mark);
+    }
 
     board.gameboard.addEventListener('click', (event) => {
       if (event.target.className !== 'cell') return;
       const play = currentPlayer.playTurn(board, event.target);
       if (!play) return;
       const winStatus = board.checkWin();
+      if (winStatus === 'Tie') {
+        gameStatus.textContent = 'Tie!';
+      } else if (winStatus === null) {
+        switchTurn();
+        gameStatus.textContent = `${currentPlayer.mark}'s Turn`;
+      } else {
+        gameStatus.textContent = `Winner is ${currentPlayer.mark}`;
+      }
     });
   };
 
