@@ -2,11 +2,9 @@ const Player = (mark) => {
   const playTurn = (board, cell) => {
     const idx = cell.dataset.index;
     if (board.boardArray[idx] === undefined) {
-      board.boardArray[idx] = mark;
-      board.render();
-      return true;
+      return idx;
     }
-    return false;
+    return null;
   };
 
   return { mark, playTurn };
@@ -72,23 +70,31 @@ const Game = (() => {
     const gameStatus = document.querySelector('.game-status');
     if (currentPlayer.mark !== '') {
       gameStatus.textContent = `${currentPlayer.mark}'s Turn`;
-      console.log(currentPlayer.mark);
     }
+    const controller = new AbortController();
 
-    board.gameboard.addEventListener('click', (event) => {
-      if (event.target.className !== 'cell') return;
-      const play = currentPlayer.playTurn(board, event.target);
-      if (!play) return;
-      const winStatus = board.checkWin();
-      if (winStatus === 'Tie') {
-        gameStatus.textContent = 'Tie!';
-      } else if (winStatus === null) {
-        switchTurn();
-        gameStatus.textContent = `${currentPlayer.mark}'s Turn`;
-      } else {
-        gameStatus.textContent = `Winner is ${currentPlayer.mark}`;
-      }
-    });
+    board.gameboard.addEventListener(
+      'click',
+      (event) => {
+        if (event.target.className !== 'cell') return;
+        const play = currentPlayer.playTurn(board, event.target);
+        if (play === null) return;
+        board.boardArray[play] = currentPlayer.mark;
+        board.render();
+
+        const winStatus = board.checkWin();
+        if (winStatus === 'Tie') {
+          gameStatus.textContent = 'Tie!';
+        } else if (winStatus === null) {
+          switchTurn();
+          gameStatus.textContent = `${currentPlayer.mark}'s Turn`;
+        } else {
+          gameStatus.textContent = `Winner is ${currentPlayer.mark}`;
+          controller.abort();
+        }
+      },
+      { signal: controller.signal },
+    );
   };
 
   const gameInit = () => {
