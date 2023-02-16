@@ -1,9 +1,7 @@
 const Player = (mark) => {
   const playTurn = (board, cell) => {
     const idx = cell.dataset.index;
-    if (board.boardArray[idx] === undefined) {
-      return idx;
-    }
+    if (board.boardArray[idx] === undefined) return idx;
     return null;
   };
 
@@ -68,9 +66,7 @@ const Game = (() => {
   const gameRound = () => {
     const board = Gameboard;
     const gameStatus = document.querySelector('.game-status');
-    if (currentPlayer.mark !== '') {
-      gameStatus.textContent = `${currentPlayer.mark}'s Turn`;
-    }
+    gameStatus.textContent = `${currentPlayer.mark}'s Turn`;
     const controller = new AbortController();
 
     board.gameboard.addEventListener(
