@@ -106,11 +106,17 @@ body {
   width: 30vmin;
   text-align: center;
   font-size: 3.5vmin;
+  border-style: solid;
+  outline: none;  
 }
 
 .player-name::placeholder {
   text-align: center;
   font-size: 3.5vmin;  
+}
+
+.player-name:hover, .player-name:focus {
+  border-color: hsl(17, 56%, 60%);
 }
 
 .game-mode, .start-btn {
@@ -130,9 +136,17 @@ body {
 }
 
 .start-btn {
-  background-color: #e9855e;
+  background-color: hsl(17, 76%, 64%);
+}
+
+.start-btn:hover {
+  background-color: hsl(17, 76%, 69%);
 }
 
 .game-mode .btn {
-  background-color: #6de07c;
+  background-color: hsl(128, 65%, 65%);
+}
+
+.game-mode .btn:hover {
+  background-color: hsl(128, 65%, 70%);
 }
