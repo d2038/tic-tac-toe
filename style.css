@@ -15,7 +15,7 @@ body {
 .gameboard-container {
   background-color: #b7c68b;
   min-height: 100vh;
-  width: 60vmin;
+  width: 100vmin;
   margin: 0 auto;
 }
 
@@ -73,7 +73,7 @@ body {
   width: 100%;
   height: 100%;
   background-color: #b7c68b;
-  padding: 20vmin 0;
+  padding: 15vmin 0;
 }
 
 .start-content {
@@ -110,6 +110,29 @@ body {
 
 .player-name::placeholder {
   text-align: center;
-  font-size: 3.5vmin;
-  font
+  font-size: 3.5vmin;  
+}
+
+.game-mode, .start-btn {
+  margin: 2vmin 0;
+}
+
+.game-mode {
+  display: flex;
+  gap: 2vmin;
+}
+
+.btn {
+  border-radius: 1vmin;
+  height: 8vmin;
+  width: 30vmin;
+  font-size: 4vmin;
+}
+
+.start-btn {
+  background-color: #e9855e;
+}
+
+.game-mode .btn {
+  background-color: #6de07c;
 }
