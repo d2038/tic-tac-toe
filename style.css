@@ -36,7 +36,7 @@ body {
 }
 
 .cell {
-  background-image: url(./wood.jpg);
+  background-image: url(./images/wood.jpg);
   background-size: cover;
   display: flex;
   align-items: center;
