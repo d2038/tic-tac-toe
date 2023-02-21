@@ -1,7 +1,7 @@
 const Player = (mark) => {
   const playTurn = (board, cell) => {
     const idx = cell.dataset.index;
-    if (board.boardArray[idx] === undefined) return idx;
+    if (board.boardArray[idx] === '') return idx;
     return null;
   };
 
@@ -9,7 +9,7 @@ const Player = (mark) => {
 };
 
 const Gameboard = (() => {
-  const boardArray = new Array(9);
+  const boardArray = new Array(9).fill('');
   const gameboard = document.querySelector('.gameboard');
   const cells = Array.from(document.querySelectorAll('.cell'));
   let winner = null;
@@ -34,7 +34,7 @@ const Gameboard = (() => {
 
     winArrays.forEach((combo) => {
       if (
-        boardArray[combo[0]]
+        boardArray[combo[0]] !== ''
         && boardArray[combo[0]] === boardArray[combo[1]]
         && boardArray[combo[0]] === boardArray[combo[2]]
       ) {
@@ -42,7 +42,7 @@ const Gameboard = (() => {
       }
     });
 
-    return winner || (boardArray.includes(undefined) ? null : 'Tie');
+    return winner || (boardArray.includes('') ? null : 'Tie');
   };
 
   return {
