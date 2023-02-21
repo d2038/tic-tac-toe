@@ -1,11 +1,11 @@
-const Player = (mark) => {
+const Player = (name, mark) => {
   const playTurn = (board, cell) => {
     const idx = cell.dataset.index;
     if (board.boardArray[idx] === '') return idx;
     return null;
   };
 
-  return { mark, playTurn };
+  return { name, mark, playTurn };
 };
 
 const Gameboard = (() => {
@@ -66,7 +66,7 @@ const Game = (() => {
   const gameRound = () => {
     const board = Gameboard;
     const gameStatus = document.querySelector('.game-status');
-    gameStatus.textContent = `${currentPlayer.mark}'s Turn`;
+    gameStatus.textContent = `${currentPlayer.name}'s Turn`;
     const controller = new AbortController();
 
     board.gameboard.addEventListener(
@@ -83,9 +83,9 @@ const Game = (() => {
           gameStatus.textContent = 'Tie!';
         } else if (winStatus === null) {
           switchTurn();
-          gameStatus.textContent = `${currentPlayer.mark}'s Turn`;
+          gameStatus.textContent = `${currentPlayer.name}'s Turn`;
         } else {
-          gameStatus.textContent = `Winner is ${currentPlayer.mark}`;
+          gameStatus.textContent = `Winner is ${currentPlayer.name}`;
           controller.abort();
         }
       },
@@ -94,8 +94,8 @@ const Game = (() => {
   };
 
   const gameInit = () => {
-    playerOne = Player('X');
-    playerTwo = Player('O');
+    playerOne = Player('temp1', 'X');
+    playerTwo = Player('temp2', 'O');
     currentPlayer = playerOne;
 
     gameRound();
