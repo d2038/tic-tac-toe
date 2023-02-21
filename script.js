@@ -8,15 +8,33 @@ const Player = (name, mark) => {
   return { name, mark, playTurn };
 };
 
-const Gameboard = (() => {
-  const boardArray = new Array(9).fill('');
+const UI = (() => {
   const gameboard = document.querySelector('.gameboard');
   const cells = Array.from(document.querySelectorAll('.cell'));
+  const gameStatus = document.querySelector('.game-status');
+
+  const updateCell = (mark, idx) => {
+    cells[idx].textContent = mark;
+  };
+
+  const updateGameStatus = (status) => {
+    gameStatus.textContent = status;
+  };
+
+  return {
+    gameboard,
+    updateCell,
+    updateGameStatus,
+  };
+})();
+
+const Gameboard = (() => {
+  const boardArray = new Array(9).fill('');
   let winner = null;
 
   const render = () => {
     boardArray.forEach((mark, idx) => {
-      cells[idx].textContent = mark;
+      UI.updateCell(mark, idx);
     });
   };
 
@@ -47,17 +65,15 @@ const Gameboard = (() => {
 
   return {
     boardArray,
-    gameboard,
-    cells,
     render,
     checkWin,
   };
 })();
 
 const Game = (() => {
-  let currentPlayer;
   let playerOne;
   let playerTwo;
+  let currentPlayer;
 
   const switchTurn = () => {
     currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
@@ -65,11 +81,10 @@ const Game = (() => {
 
   const gameRound = () => {
     const board = Gameboard;
-    const gameStatus = document.querySelector('.game-status');
-    gameStatus.textContent = `${currentPlayer.name}'s Turn`;
+    UI.updateGameStatus(`${currentPlayer.name}'s Turn`);
     const controller = new AbortController();
 
-    board.gameboard.addEventListener(
+    UI.gameboard.addEventListener(
       'click',
       (event) => {
         if (event.target.className !== 'cell') return;
@@ -80,12 +95,12 @@ const Game = (() => {
 
         const winStatus = board.checkWin();
         if (winStatus === 'Tie') {
-          gameStatus.textContent = 'Tie!';
+          UI.updateGameStatus('Tie!');
         } else if (winStatus === null) {
           switchTurn();
-          gameStatus.textContent = `${currentPlayer.name}'s Turn`;
+          UI.updateGameStatus(`${currentPlayer.name}'s Turn`);
         } else {
-          gameStatus.textContent = `Winner is ${currentPlayer.name}`;
+          UI.updateGameStatus(`Winner is ${currentPlayer.name}`);
           controller.abort();
         }
       },
