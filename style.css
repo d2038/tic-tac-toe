@@ -69,8 +69,7 @@ body {
   border-end-end-radius: var(--radius);
 }
 
-.start-screen {  
-  display: none;
+.start-screen {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -101,14 +100,13 @@ body {
 .versus {
   width: 15vmin;
   height: 15vmin;
-  overflow: hidden;  
+  overflow: hidden;
 }
 
-.versus-img {  
+.versus-img {
   height: 20vmin;
   width: 20vmin;
   margin: -2.5vmin 0 0 -1.8vmin;
-     
 }
 
 .player-name {
