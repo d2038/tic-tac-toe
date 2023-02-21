@@ -9,6 +9,10 @@ const Player = (name, mark) => {
 };
 
 const UI = (() => {
+  const startScreen = document.querySelector('.start-screen');
+  const playerOne = document.querySelector('#player1');
+  const playerTwo = document.querySelector('#player2');
+  const startBtn = document.querySelector('.start-btn');
   const gameboard = document.querySelector('.gameboard');
   const cells = Array.from(document.querySelectorAll('.cell'));
   const gameStatus = document.querySelector('.game-status');
@@ -21,10 +25,22 @@ const UI = (() => {
     gameStatus.textContent = status;
   };
 
+  const hideStartScreen = () => {
+    startScreen.style.display = 'none';
+  };
+
+  const getPlayerOne = () => (playerOne.value === '' ? 'Player 1' : playerOne.value);
+
+  const getPlayerTwo = () => (playerTwo.value === '' ? 'Player 2' : playerTwo.value);
+
   return {
     gameboard,
+    startBtn,
     updateCell,
     updateGameStatus,
+    hideStartScreen,
+    getPlayerOne,
+    getPlayerTwo,
   };
 })();
 
@@ -109,14 +125,17 @@ const Game = (() => {
   };
 
   const gameInit = () => {
-    playerOne = Player('temp1', 'X');
-    playerTwo = Player('temp2', 'O');
+    playerOne = Player(UI.getPlayerOne(), 'X');
+    playerTwo = Player(UI.getPlayerTwo(), 'O');
     currentPlayer = playerOne;
 
     gameRound();
+    UI.hideStartScreen();
   };
 
   return { gameInit };
 })();
 
-Game.gameInit();
+UI.startBtn.addEventListener('click', () => {
+  Game.gameInit();
+});
