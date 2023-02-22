@@ -93,6 +93,7 @@ const UI = (() => {
   const gameboard = document.querySelector('.gameboard');
   const gameStatus = document.querySelector('.game-status');
   const restartBtn = document.querySelector('.restart-btn');
+  const goBackBtn = document.querySelector('.go-back-btn');
   const cells = Array.from(document.querySelectorAll('.cell'));
 
   const renderBoard = () => {
@@ -111,7 +112,7 @@ const UI = (() => {
         msg = 'Tie!';
         break;
       case 'winner':
-        msg = `Winner is ${name}`;
+        msg = `Winner is ${name}!!`;
         break;
       default:
         msg = '';
@@ -138,6 +139,11 @@ const UI = (() => {
     gameboard.style.pointerEvents = 'auto';
   };
 
+  const goBack = () => {
+    restart();
+    startScreen.style.display = 'block';
+  };
+
   const startGame = () => {
     startScreen.style.display = 'none';
     const playerOneName = playerOne.value === '' ? 'Player 1' : playerOne.value;
@@ -146,6 +152,7 @@ const UI = (() => {
 
     gameboard.addEventListener('click', renderMove);
     restartBtn.addEventListener('click', restart);
+    goBackBtn.addEventListener('click', goBack);
 
     Game.init(playerOneName, playerTwoName);
   };
