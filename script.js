@@ -59,10 +59,10 @@ const Game = (() => {
 
   const makeMove = (event) => {
     if (!event.target.classList.contains('cell')) return null;
-    const play = currentPlayer.playTurn(Gameboard, event.target);
-    if (play === null) return null;
-    Gameboard.boardArray[play] = currentPlayer.mark;
-    return Gameboard.boardArray;
+    const playIdx = currentPlayer.playTurn(Gameboard, event.target);
+    if (playIdx === null) return null;
+    Gameboard.boardArray[playIdx] = currentPlayer.mark;
+    return playIdx;
   };
 
   const restart = () => {
@@ -96,7 +96,11 @@ const UI = (() => {
   const goBackBtn = document.querySelector('.go-back-btn');
   const cells = Array.from(document.querySelectorAll('.cell'));
 
-  const renderBoard = () => {
+  const renderBoard = (playIdx = null) => {
+    if (playIdx) {
+      cells[playIdx].textContent = Gameboard.boardArray[playIdx];
+      return;
+    }
     Gameboard.boardArray.forEach((mark, idx) => {
       cells[idx].textContent = mark;
     });
@@ -122,9 +126,9 @@ const UI = (() => {
   };
 
   const renderMove = (event) => {
-    const move = Game.makeMove(event);
-    if (!move) return;
-    renderBoard();
+    const playIdx = Game.makeMove(event);
+    if (!playIdx) return;
+    renderBoard(playIdx);
     const statusArray = Game.checkWin();
     if (statusArray[1] === 'winner') {
       gameboard.style.pointerEvents = 'none';
