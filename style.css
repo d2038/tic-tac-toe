@@ -141,11 +141,11 @@ body {
   font-size: 4vmin;
 }
 
-.start-btn {
+.start-btn, .options .btn {
   background-color: hsl(17, 76%, 64%);
 }
 
-.start-btn:hover {
+.start-btn:hover, .options .btn:hover {
   background-color: hsl(17, 76%, 69%);
 }
 
@@ -155,12 +155,4 @@ body {
 
 .game-mode .btn:hover {
   background-color: hsl(128, 65%, 70%);
-}
-
-.options-btn {
-  background-color: hsl(17, 76%, 64%);
-}
-
-.options-btn:hover {
-  background-color: hsl(17, 76%, 69%);
 }
